@@ -1,0 +1,21 @@
+-----------Budget Trucker for Uber Drivers ----------
+##Farnoosh Rahmati 
+##Amin Ameli Kalkhoran
+
+
+for the backend we use python and flask 
+
+for the database we considered four tables:
+1-userTable
+----userID, username, email, password
+2-car maintenance table
+----maintenance_id, user_id, cost, description, date 
+3-Drinks Table
+---drink_d, user_id, cost, type,date
+4-other costs Table
+---cost_id, user_id, cost, description, date.
+
+
+Creating app.py to setting up the flask application
+creating signup for in HTML 
+adding route to the app.py one for display also for submission
