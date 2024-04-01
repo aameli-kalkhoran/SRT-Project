@@ -1,22 +1,4 @@
-<<<<<<< HEAD
-#####Amin-Farnoosh
-from flask import Flask, render_template, request, redirect, url_for
-import mysql.connector
 
-app = Flask(__name__)
-
-
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Ashkan@1234",
-    database="srt"
-)
-#####routing
-@app.route('/')
-def index():
-    return "Hello, World!"
-=======
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 import mysql.connector
