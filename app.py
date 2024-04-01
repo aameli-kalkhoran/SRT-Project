@@ -8,9 +8,9 @@ app = Flask(__name__)
 ###connecting the app to the database
 db = mysql.connector.connect(
     host="localhost",
-    user="aameli",
-    password="P@ssw0rd1234",
-    database="srtproject"
+    user="root",
+    password="Ashkan@1234",
+    database="srt"
 )
 #####routing
 @app.route('/')
