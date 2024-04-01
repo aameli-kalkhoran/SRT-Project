@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+</head>
+<body>
+    <h1>Results</h1>
+    
+    <h2>User Information</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in user_data %}
+            <tr>
+                <td>{{ user[0] }}</td>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[2] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Car Maintenance Costs</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Cost</th>
+                <th>Description</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for maintenance in maintenance_data %}
+            <tr>
+                <td>{{ maintenance[2] }}</td>
+                <td>{{ maintenance[3] }}</td>
+                <td>{{ maintenance[4] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Drinks Costs</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Cost</th>
+                <th>Type</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for drink in drinks_data %}
+            <tr>
+                <td>{{ drink[2] }}</td>
+                <td>{{ drink[3] }}</td>
+                <td>{{ drink[4] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Other Costs</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Cost</th>
+                <th>Description</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for other_cost in other_costs_data %}
+            <tr>
+                <td>{{ other_cost[2] }}</td>
+                <td>{{ other_cost[3] }}</td>
+                <td>{{ other_cost[4] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

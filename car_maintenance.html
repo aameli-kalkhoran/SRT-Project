@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Car Maintenance</title>
 </head>
 <body>
-    <h1>Sign Up</h1>
+    <h1>Car Maintenance</h1>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul>
@@ -16,11 +16,12 @@
             </ul>
         {% endif %}
     {% endwith %}
-    <form action="/signup" method="post">
+    <form action="/car_maintenance" method="post">
         Username: <input type="text" name="username" required><br>
-        Email: <input type="email" name="email" required><br>
-        Password: <input type="password" name="password" required><br>
-        <input type="submit" value="Sign Up">
+        Cost: <input type="text" name="cost" required><br>
+        Description: <textarea name="description" required></textarea><br>
+        Date: <input type="date" name="date" required><br>
+        <input type="submit" value="Submit">
     </form>
 </body>
 </html>
