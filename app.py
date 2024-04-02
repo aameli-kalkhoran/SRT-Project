@@ -18,7 +18,6 @@ def get_user_id_by_username(username):
     cursor = conn.cursor()
     cursor.execute("SELECT user_id FROM users WHERE username = %s", (username,))
     result = cursor.fetchone()
-    cursor.close()
     conn.close()
     return result[0] if result else None
 
@@ -34,19 +33,16 @@ def signup():
         username = request.form['username']
         email = request.form['email']
         hashed_password = generate_password_hash(request.form['password'])
-        
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
         cursor.execute(
             "INSERT INTO users (username, email, password) VALUES (%s, %s, %s)", 
             (username, email, hashed_password)
         )
+        user_id = cursor.lastrowid
         conn.commit()
-        cursor.close()
         conn.close()
-
-        session['user_id'] = cursor.lastrowid
-        
+        session['user_id'] = user_id
         flash('User successfully signed up!', 'success')
         return redirect(url_for('index'))
     return render_template('signup.html')
@@ -55,18 +51,15 @@ def signup():
 def car_maintenance():
     if 'user_id' not in session:
         return redirect(url_for('signup'))
-
     if request.method == 'POST':
         username = request.form['username']
         user_id = get_user_id_by_username(username)
         if user_id is None:
             flash('User does not exist!', 'error')
             return redirect(url_for('car_maintenance'))
-
         cost = request.form['cost']
         description = request.form['description']
         date = request.form['date']
-        
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
         cursor.execute(
@@ -74,9 +67,7 @@ def car_maintenance():
             (user_id, cost, description, date)
         )
         conn.commit()
-        cursor.close()
         conn.close()
-
         flash('Information successfully updated!', 'success')
         return redirect(url_for('index'))
     return render_template('car_maintenance.html')
@@ -85,18 +76,15 @@ def car_maintenance():
 def drinks():
     if 'user_id' not in session:
         return redirect(url_for('signup'))
-
     if request.method == 'POST':
         username = request.form['username']
         user_id = get_user_id_by_username(username)
         if user_id is None:
             flash('User does not exist!', 'error')
             return redirect(url_for('drinks'))
-
         cost = request.form['cost']
         type = request.form['type']
         date = request.form['date']
-        
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
         cursor.execute(
@@ -104,9 +92,7 @@ def drinks():
             (user_id, cost, type, date)
         )
         conn.commit()
-        cursor.close()
         conn.close()
-
         flash('Information successfully updated!', 'success')
         return redirect(url_for('index'))
     return render_template('drinks.html')
@@ -115,18 +101,15 @@ def drinks():
 def other_costs():
     if 'user_id' not in session:
         return redirect(url_for('signup'))
-
     if request.method == 'POST':
         username = request.form['username']
         user_id = get_user_id_by_username(username)
         if user_id is None:
             flash('User does not exist!', 'error')
             return redirect(url_for('other_costs'))
-
         cost = request.form['cost']
         description = request.form['description']
         date = request.form['date']
-        
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
         cursor.execute(
@@ -134,9 +117,7 @@ def other_costs():
             (user_id, cost, description, date)
         )
         conn.commit()
-        cursor.close()
         conn.close()
-
         flash('Information successfully updated!', 'success')
         return redirect(url_for('index'))
     return render_template('other_costs.html')
@@ -145,28 +126,20 @@ def other_costs():
 def results():
     if 'user_id' not in session:
         return redirect(url_for('signup'))
-        
     user_id = session['user_id']
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
-
     cursor.execute("SELECT * FROM users WHERE user_id = %s", (user_id,))
     user_data = cursor.fetchall()
-
     cursor.execute("SELECT * FROM car_maintenance WHERE user_id = %s", (user_id,))
     maintenance_data = cursor.fetchall()
-
     cursor.execute("SELECT * FROM drinks WHERE user_id = %s", (user_id,))
     drinks_data = cursor.fetchall()
-
     cursor.execute("SELECT * FROM other_costs WHERE user_id = %s", (user_id,))
     other_costs_data = cursor.fetchall()
-
     cursor.close()
     conn.close()
-
     return render_template('results.html', user_data=user_data, maintenance_data=maintenance_data, drinks_data=drinks_data, other_costs_data=other_costs_data)
->>>>>>> cf4336d (update2)
 
 if __name__ == '__main__':
     app.run(debug=True)
